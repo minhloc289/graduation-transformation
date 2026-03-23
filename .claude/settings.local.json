@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-expo-app@latest monolith --template blank-typescript)",
+      "Bash(npx expo:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx create-next-app@latest monolith --typescript --tailwind --eslint --app --src-dir --no-import-alias --use-npm)",
+      "Bash(npm run:*)"
+    ]
+  }
+}
