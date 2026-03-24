@@ -5,7 +5,27 @@
       "Bash(npx expo:*)",
       "Bash(npx tsc:*)",
       "Bash(npx create-next-app@latest monolith --typescript --tailwind --eslint --app --src-dir --no-import-alias --use-npm)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "WebSearch",
+      "Bash(npx next:*)",
+      "Bash(curl -s http://localhost:3002/daily)",
+      "mcp__browsermcp__browser_navigate",
+      "mcp__claude_ai_Supabase__list_organizations",
+      "mcp__claude_ai_Supabase__list_projects",
+      "mcp__claude_ai_Supabase__get_project_url",
+      "mcp__claude_ai_Supabase__get_publishable_keys",
+      "mcp__claude_ai_Supabase__list_tables",
+      "mcp__claude_ai_Supabase__apply_migration",
+      "Bash(npm install:*)",
+      "mcp__claude_ai_Supabase__execute_sql",
+      "Bash(ls:*)",
+      "Bash(node:*)",
+      "Bash(grep -r routes-manifest /Users/minhloc/Developer/test/monolith/node_modules/next/dist/server/dev/ --include=*.js -l)",
+      "Bash(xxd /Users/minhloc/Developer/test/monolith/.next/routes-manifest.json)",
+      "Bash(npm show:*)",
+      "Bash(grep -r routes-manifest /Users/minhloc/Developer/test/monolith/node_modules/next/dist/ --include=*.js -l)",
+      "Bash(vercel --version)",
+      "Bash(npm ls:*)"
     ]
   }
 }

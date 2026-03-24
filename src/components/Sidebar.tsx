@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { getDayNumber, getTodayString, PROGRAM_DAYS } from "@/lib/supabase";
 
 const navItems = [
   { href: "/", icon: "dashboard", label: "Dashboard" },
@@ -13,15 +15,10 @@ const navItems = [
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const [mindset, setMindset] = useState<"SOFT" | "BALANCED" | "AGGRESSIVE">(
-    "AGGRESSIVE"
-  );
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Close sidebar on route change
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
+  const todayStr = useMemo(() => getTodayString(), []);
+  const dayNum = useMemo(() => getDayNumber(todayStr), [todayStr]);
 
   // Lock body scroll when mobile sidebar is open
   useEffect(() => {
@@ -40,7 +37,7 @@ export default function Sidebar() {
       {/* Mobile top bar */}
       <div className="fixed top-0 left-0 right-0 h-16 bg-[#131313]/95 backdrop-blur-xl border-b border-neutral-800 flex items-center justify-between px-5 z-[60] lg:hidden">
         <h1 className="text-xl font-black tracking-tighter text-white font-[var(--font-headline)] uppercase">
-          MONOLITH
+          GRIND
         </h1>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -70,32 +67,36 @@ export default function Sidebar() {
           lg:translate-x-0
         `}
       >
-        <div className="mb-12">
-          <h1 className="text-3xl font-black tracking-tighter text-white font-[var(--font-headline)] uppercase">
-            MONOLITH
+        <div className="mb-10">
+          <h1 className="text-4xl font-black tracking-tighter text-white font-[var(--font-headline)] uppercase">
+            GRIND
           </h1>
-          <p className="text-[0.65rem] font-bold tracking-[0.2em] text-neutral-500 mt-1 uppercase">
-            DAY 12 / 30
+          <p className="text-xs font-bold tracking-[0.2em] text-neutral-400 mt-2 uppercase">
+            DAY {dayNum.toString().padStart(2, "0")} / {PROGRAM_DAYS}
+          </p>
+          <p className="text-xs font-bold tracking-[0.15em] text-tertiary-fixed mt-1 uppercase">
+            GRADUATION: 22 APR 2026
           </p>
         </div>
 
-        <nav className="flex flex-col gap-2 flex-grow">
+        <nav className="flex flex-col gap-1 flex-grow">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-4 px-4 py-3 transition-all duration-150 ${
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center gap-4 px-4 py-3.5 rounded-lg transition-all duration-150 ${
                   isActive
                     ? "text-white bg-neutral-800"
-                    : "text-neutral-500 hover:bg-neutral-800 hover:text-white"
+                    : "text-neutral-400 hover:bg-neutral-800 hover:text-white"
                 }`}
               >
                 <span className="material-symbols-outlined text-xl">
                   {item.icon}
                 </span>
-                <span className="font-[var(--font-headline)] uppercase font-bold tracking-tight text-[0.75rem]">
+                <span className="font-[var(--font-headline)] uppercase font-bold tracking-tight text-sm">
                   {item.label}
                 </span>
               </Link>
@@ -103,45 +104,22 @@ export default function Sidebar() {
           })}
         </nav>
 
-        <div className="mt-auto pt-8 flex flex-col gap-6">
-          <div className="bg-surface-container-lowest p-3 rounded-lg">
-            <p className="text-[0.6rem] font-bold text-neutral-500 mb-2 tracking-widest uppercase">
-              MINDSET MODE
-            </p>
-            <div className="flex gap-1 bg-black p-1 rounded">
-              {(["SOFT", "BALANCED", "AGGRESSIVE"] as const).map((mode) => (
-                <button
-                  key={mode}
-                  onClick={() => setMindset(mode)}
-                  className={`flex-1 text-[0.6rem] py-1 font-bold ${
-                    mindset === mode
-                      ? mode === "AGGRESSIVE"
-                        ? "text-white bg-tertiary-fixed"
-                        : "text-white bg-neutral-700"
-                      : "text-neutral-500"
-                  }`}
-                >
-                  {mode}
-                </button>
-              ))}
+        <div className="mt-auto pt-6 flex flex-col gap-4">
+          {/* Competitor profile */}
+          <div className="flex items-center gap-3 px-2">
+            <div className="w-10 h-10 shrink-0 overflow-hidden rounded-full border-2 border-tertiary-fixed/40">
+              <Image src="/competitor.jpg" alt="Duy" width={40} height={40} className="w-full h-full object-cover object-top" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-white uppercase tracking-wider">BUI MAI ANH DUY</p>
+              <p className="text-xs text-neutral-500 uppercase tracking-wider">Competitor</p>
             </div>
           </div>
 
-          <div className="flex flex-col gap-1">
-            <Link
-              href="#"
-              className="flex items-center gap-4 text-neutral-500 px-4 py-2 hover:text-white transition-colors"
-            >
-              <span className="material-symbols-outlined text-lg">settings</span>
-              <span className="text-[0.7rem] font-bold uppercase">Settings</span>
-            </Link>
-            <Link
-              href="#"
-              className="flex items-center gap-4 text-neutral-500 px-4 py-2 hover:text-white transition-colors"
-            >
-              <span className="material-symbols-outlined text-lg">help</span>
-              <span className="text-[0.7rem] font-bold uppercase">Support</span>
-            </Link>
+          {/* Mindset — always aggressive */}
+          <div className="bg-tertiary-fixed/10 border border-tertiary-fixed/20 px-4 py-2.5 rounded-lg flex items-center gap-2.5">
+            <span className="material-symbols-outlined text-tertiary-fixed text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>local_fire_department</span>
+            <span className="text-xs font-black text-tertiary-fixed uppercase tracking-widest">AGGRESSIVE MODE</span>
           </div>
         </div>
       </aside>
