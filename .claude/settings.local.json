@@ -25,7 +25,8 @@
       "Bash(npm show:*)",
       "Bash(grep -r routes-manifest /Users/minhloc/Developer/test/monolith/node_modules/next/dist/ --include=*.js -l)",
       "Bash(vercel --version)",
-      "Bash(npm ls:*)"
+      "Bash(npm ls:*)",
+      "Bash(vercel env:*)"
     ]
   }
 }

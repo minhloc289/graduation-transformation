@@ -147,7 +147,7 @@ async function sendNotification(type: NotificationType): Promise<{
     streakCount,
     currentWeight: latestLog?.weight_kg ?? null,
     targetWeight: TARGET_WEIGHT,
-    appUrl: process.env.NEXT_PUBLIC_APP_URL ?? "https://grind.vercel.app",
+    appUrl: process.env.NEXT_PUBLIC_APP_URL ?? "https://graduation-transformation.vercel.app",
   };
 
   const html = buildEmailHTML(emailParams);
