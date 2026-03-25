@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit, Anton } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 import Sidebar from "@/components/Sidebar";
 import ChatWidget from "@/components/ChatWidget";
 
@@ -59,6 +60,7 @@ export default function RootLayout({
           {children}
         </main>
         <ChatWidget />
+        <Analytics />
       </body>
     </html>
   );
