@@ -11,6 +11,7 @@ const navItems = [
   { href: "/daily", icon: "calendar_today", label: "Daily" },
   { href: "/progress", icon: "insights", label: "Progress" },
   { href: "/plan", icon: "event_note", label: "Plan" },
+  { href: "/changelog", icon: "history", label: "Changelog" },
 ];
 
 export default function Sidebar() {
