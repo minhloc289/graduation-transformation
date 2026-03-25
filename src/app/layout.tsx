@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Anton } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
+import ChatWidget from "@/components/ChatWidget";
 
 const anton = Anton({
   variable: "--font-anton",
@@ -57,6 +58,7 @@ export default function RootLayout({
         <main className="flex-1 min-h-screen pt-16 lg:pt-0 lg:ml-64">
           {children}
         </main>
+        <ChatWidget />
       </body>
     </html>
   );

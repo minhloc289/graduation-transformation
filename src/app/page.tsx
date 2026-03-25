@@ -45,17 +45,20 @@ export default function Dashboard() {
               </p>
             </div>
           </div>
-          <div className="bg-surface-container-high p-6 sm:p-8 flex flex-col justify-between aspect-square w-36 sm:w-48 border-l-4 border-tertiary-fixed shrink-0">
-            <span className="text-4xl sm:text-5xl font-black font-[var(--font-headline)] leading-none">
-              {remaining.toString().padStart(2, "0")}
-            </span>
-            <div>
-              <p className="text-xs font-bold text-neutral-400 uppercase tracking-tighter">
-                Tasks Remaining
-              </p>
-              <p className="text-xs font-black text-tertiary-fixed uppercase">
-                Status: {!loaded ? "--" : remaining > 4 ? "Critical" : remaining > 0 ? "Active" : "Complete"}
-              </p>
+          <div className="shrink-0 flex flex-col items-end gap-3">
+            <div className="flex items-baseline gap-2">
+              <span className="font-[var(--font-headline)] text-5xl sm:text-6xl font-black leading-none text-white">
+                {remaining.toString().padStart(2, "0")}
+              </span>
+              <span className="text-sm font-bold text-neutral-500 uppercase">/ {tasks.length}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className={`w-2 h-2 rounded-full ${remaining === 0 ? "bg-secondary" : remaining > 4 ? "bg-tertiary-fixed animate-pulse" : "bg-white"}`} />
+              <span className={`text-sm font-black uppercase tracking-widest ${
+                !loaded ? "text-neutral-600" : remaining === 0 ? "text-secondary" : remaining > 4 ? "text-tertiary-fixed" : "text-white"
+              }`}>
+                {!loaded ? "--" : remaining === 0 ? "COMPLETE" : remaining > 4 ? "CRITICAL" : "ACTIVE"}
+              </span>
             </div>
           </div>
         </div>
