@@ -63,14 +63,14 @@ export function useMonolith() {
       }
     }
 
-    // Ensure tasks exist
+    // Ensure tasks exist (upsert to prevent duplicates)
     if (!existingTasks || existingTasks.length === 0) {
       const taskRows = DEFAULT_TASKS.map((name) => ({
         date: today,
         task_name: name,
         completed: false,
       }));
-      await supabase.from("daily_tasks").insert(taskRows);
+      await supabase.from("daily_tasks").upsert(taskRows, { onConflict: "date,task_name", ignoreDuplicates: true });
     }
 
     // 2. Fetch all independent data in parallel
@@ -135,7 +135,8 @@ export function useMonolith() {
         } else {
           pastDays++;
           const dayTasks = tasksByDate[dateStr];
-          if (dayTasks && dayTasks.length > 0 && dayTasks.every(Boolean)) {
+          const doneCount = dayTasks ? dayTasks.filter(Boolean).length : 0;
+          if (dayTasks && dayTasks.length > 0 && doneCount >= 5) {
             days.push("completed");
             completedDays++;
           } else {
